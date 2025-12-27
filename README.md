@@ -1,6 +1,6 @@
-# **User Controlled Intelligence (UCI)**
+# **User-Defined Control (UDC)**
 
-**An Open Standard for User-Controlled AI Behaviour Admission**
+**An Open Standard for User-Defined AI Behaviour Admission**
 
 **Specification Version:** **v1.0.0**
 **Status:** **Implementation-Ready, Fail-Closed Specification**
@@ -12,23 +12,23 @@
 
 ## **Status of This Memo (Informative)**
 
-This document specifies **User Controlled Intelligence (UCI)**, an admission-control architecture for AI behaviour.
+This document specifies **User-Defined Control (UDC)**, an admission-control architecture for AI behaviour.
 
 Distribution of this memo is unlimited.
 
-UCI is **not** a model, **not** an alignment framework, **not** an agent system, and **not** a provider moderation policy.
-It defines a **user-controlled enforcement layer** that determines which AI behaviours are admissible before they reach users or downstream systems.
+UDC is **not** a model, **not** an alignment framework, **not** an agent system, and **not** a provider moderation policy.
+It defines a **user-defined enforcement layer** that determines which AI behaviours are admissible before they reach users or downstream systems.
 
 **Implementation Status (Informative).**
-UCI defines the enforcement mechanism that enables user control; user-facing tooling and interfaces are intentionally out of scope for this specification.
+UDC defines the enforcement mechanism that enables user control; user-facing tooling and interfaces are intentionally out of scope for this specification.
 
 ---
 
 ## **1. Abstract (Normative)**
 
-User Controlled Intelligence (UCI) defines a deterministic, user-owned behavioural admission layer for AI systems. All AI outputs and action proposals are treated as **untrusted proposals**. Behaviour is admitted **only if** it satisfies explicit, user-controlled **Behavioural Admissibility Rules (BAR)**.
+User-Defined Control (UDC) defines a deterministic, user-owned behavioural admission layer for AI systems. All AI outputs and action proposals are treated as **untrusted proposals**. Behaviour is admitted **only if** it satisfies explicit, user-defined **Behavioural Admissibility Rules (BAR)**.
 
-UCI does not modify model weights, does not prevent model drift, and does not grant execution authority. Instead, it ensures that behavioural changes, contextual manipulation, and probabilistic variance do not reach the user **unless explicitly allowed**.
+UDC does not modify model weights, does not prevent model drift, and does not grant execution authority. Instead, it ensures that behavioural changes, contextual manipulation, and probabilistic variance do not reach the user **unless explicitly allowed**.
 
 ---
 
@@ -36,7 +36,7 @@ UCI does not modify model weights, does not prevent model drift, and does not gr
 
 ### **2.1 Purpose**
 
-UCI provides:
+UDC provides:
 
 * separation of **model capability** from **behaviour admissibility**
 * user-defined, user-controlled enforcement
@@ -47,7 +47,7 @@ UCI provides:
 
 This specification defines:
 
-* UCI Profiles and Behavioural Admissibility Rules (BAR)
+* UDC Profiles and Behavioural Admissibility Rules (BAR)
 * deterministic admission evaluation semantics
 * action-class classification and escalation
 * predicate consumption contracts
@@ -65,13 +65,13 @@ This specification explicitly does **not** define:
 
 ## **3. Terminology (Normative)**
 
-* **UCI** — *User Controlled Intelligence*; the admission control system and enforcement layer that evaluates and admits AI behaviour.
+* **UDC** — *User-Defined Control*; the admission control system and enforcement layer that evaluates and admits AI behaviour.
 
-* **BAR (Behavioural Admissibility Rules)** — User-defined **admission policy rules enforced by UCI**; analogous to access control rules or policy documents used in systems such as SELinux, AppArmor, or Kubernetes admission controllers.
+* **BAR (Behavioural Admissibility Rules)** — User-defined **admission policy rules enforced by UDC**; analogous to access control rules or policy documents used in systems such as SELinux, AppArmor, or Kubernetes admission controllers.
 
-* **UCI Profile** — A user-owned **security profile** containing one or more BARs; analogous to SELinux security profiles or Kubernetes admission policies.
+* **UDC Profile** — A user-owned **security profile** containing one or more BARs; analogous to SELinux security profiles or Kubernetes admission policies.
 
-* **Predicate Provider** — An external **attestation service** that provides verifiable boolean signals to UCI; analogous to TPM attestation, OAuth token validation, or policy decision points.
+* **Predicate Provider** — An external **attestation service** that provides verifiable boolean signals to UDC; analogous to TPM attestation, OAuth token validation, or policy decision points.
 
 * **Action Class** — A **risk / privilege classification** for proposed AI behaviour; analogous to Android permission levels or capability-based security tiers.
 
@@ -101,7 +101,7 @@ Determinism applies to **admission decisions only**, not generation.
 
 Given identical:
 
-* UCI Profile
+* UDC Profile
 * action class
 * AdmissionContext
 * predicate results
@@ -154,7 +154,7 @@ Ambiguous classification is **not an error**; escalation is the correct and requ
 
 ### **5.6 Intentional Risk Placement (Normative)**
 
-UCI intentionally concentrates behavioural admission risk into a deterministic, testable classification and enforcement boundary, in order to avoid unbounded or emergent failure modes within the model or downstream systems.
+UDC intentionally concentrates behavioural admission risk into a deterministic, testable classification and enforcement boundary, in order to avoid unbounded or emergent failure modes within the model or downstream systems.
 
 ---
 
@@ -182,10 +182,10 @@ All cryptographic operations MUST use canonical CBOR.
 
 ## **8. Data Models (Normative)**
 
-### **8.1 UCIProfile**
+### **8.1 UDCProfile**
 
 ```
-UCIProfile = {
+UDCProfile = {
   profile_id: tstr,
   name: tstr,
   version: tstr,
@@ -276,7 +276,7 @@ PredicateResult = {
 ```
 
 Predicate providers are untrusted.
-UCI MUST NOT infer truth.
+UDC MUST NOT infer truth.
 
 ---
 
@@ -337,14 +337,14 @@ Predicate caching MAY be used with enforced expiry.
 
 ## **17. Energy and Resource Efficiency (Informative)**
 
-UCI does not reduce per-token inference cost.
+UDC does not reduce per-token inference cost.
 It may reduce **wasted computation** by preventing disallowed generation, retries, and unauthorised agent planning.
 
 ---
 
 ## **18. Security Properties (Normative)**
 
-UCI guarantees:
+UDC guarantees:
 
 * no silent escalation
 * deterministic enforcement
@@ -355,7 +355,7 @@ UCI guarantees:
 
 ## **19. Privacy Considerations (Informative)**
 
-UCI evaluates behavioural admissibility using structured admission context and predicate signals. Raw prompt contents are explicitly excluded from rule evaluation, and this specification does not mandate telemetry, centralised logging, or data exfiltration. Privacy properties are therefore deployment-specific and controlled by the host environment.
+UDC evaluates behavioural admissibility using structured admission context and predicate signals. Raw prompt contents are explicitly excluded from rule evaluation, and this specification does not mandate telemetry, centralised logging, or data exfiltration. Privacy properties are therefore deployment-specific and controlled by the host environment.
 
 ---
 
@@ -444,5 +444,5 @@ Thanks to: Saltzer, Schroeder, Lampson; IETF / IRTF; Zero Trust community; AI sa
 
 ## **Conclusion (Informative)**
 
-UCI does not rely on models behaving well.
+UDC does not rely on models behaving well.
 It ensures systems behave safely **even when models do not**.
